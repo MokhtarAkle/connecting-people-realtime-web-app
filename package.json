@@ -1,20 +1,16 @@
 {
-  "name": "server-side-rendering",
+  "name": "first-realtime-web-appb",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node ./bin/www"
+    "dev": "nodemon ./routes/index.js",
+    "start": "node ./routes/index.js"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "ctc-module": "^1.0.0",
-    "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "socket.io": "^4.6.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
