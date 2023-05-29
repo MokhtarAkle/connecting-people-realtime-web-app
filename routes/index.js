@@ -35,15 +35,16 @@ router.get('/filtered', function(req, res, next) {
 
 
 router.post('/', (request, response) => {
-  request.body.timeStart = request.body.dateStart + 'T' + request.body.timeStart + ':00Z';
-  request.body.timeEnd = request.body.dateEnd + 'T' + request.body.timeEnd + ':00Z';    
+  request.body.timeStart = request.body.dateStart + 'T' + request.body.timeStart + '+00:00';
+  request.body.timeEnd = request.body.dateEnd + 'T' + request.body.timeEnd + '+00:00';    
   const url1 = `${baseurl}/reservations`
   postJson(url1, request.body).then((data) => {
     let newReservation = { ... request.body}
 
+    console.log(newReservation);
 
    if (data.success) {
-        response.redirect('/?reservationPosted')
+        response.redirect('/reservationPosted')
 
 
     }

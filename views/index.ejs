@@ -69,10 +69,11 @@
                     </li>
                     <% for(let i = 0; i < smartzones.length; i++){ %>
                       <li class="zoneInfo">
-                        <p>Smartzone: <span> <%= smartzones[i].name %> </span></p>
-
-                              
-                          
+                        <picture>
+                            <source src="<%- smartzones[i].image[0].originalAsWebP %>" type="image/webp" >
+                            <img src="<%- smartzones[i].image[0].url %> ">
+                        </picture>
+                        <p>Smartzone: <span> <%= smartzones[i].name %> </span></p> 
                         <p>Locatie: <span> <%= smartzones[i].town %> </span></p>
                         <p>Adres: <span> <%= smartzones[i].address %> </span></p>
                         <% let stringified = smartzones[i].utilization.toString() %>
