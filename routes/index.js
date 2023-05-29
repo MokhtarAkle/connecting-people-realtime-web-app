@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var filters = require('ctc-module');
+
+require('dotenv').config()
+
 const url = `${process.env.API_URL}/smartzones?first=100`;
 const baseurl = `${process.env.API_URL}`;
-var app = require('../app');
-var http = require('http');
-var port = process.env.PORT || 3000;
-app.set('port', port);
-var server = http.createServer(app);
-server.listen(port);
+
+
 
 
 
@@ -15,10 +15,8 @@ server.listen(port);
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const { query } = req
-  console.log(query.orderBy);
   let orderBy = req.query.orderBy || 'publishedAt'
   let smartUrl = url + '?orderBy=' + orderBy + '&direction=ASC' 
-
   fetchJson(smartUrl).then((data) => {
     res.render('index', data)
 

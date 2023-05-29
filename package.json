@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon ./routes/index.js",
-    "start": "node ./routes/index.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "dependencies": {
+    "ctc-module": "^1.0.1",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
