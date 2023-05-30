@@ -254,4 +254,42 @@ for(let i = 0; i < reserveButton.length; i++){
 // https://support.google.com/mymaps/answer/3024454?hl=en&co=GENIE.Platform%3DDesktop#:~:text=Create%20a%20map,map%20a%20name%20and%20description.
 // https://stackoverflow.com/questions/41648702/prevent-marker-from-scaling-when-zoom-out
 
+//connect to the socket
+const socket = io();
+//get the elements from the DOM
+const messages = document.getElementById('messages');
+const chatForm = document.getElementById("chat-form");
+
+//listen for the chat message event from the server
+socket.on("chat message", (message) => {
+  //output the message to the DOM
+  outputMessage(message);
+});
+
+//attach an event listener to the form
+chatForm.addEventListener("submit", (e) => {
+  //prevent the default behaviour
+  e.preventDefault();
+  //get the message from the input
+  const message = e.target.elements["message-input"].value;
+  //sends the message to the server
+  socket.emit("chat message", message);
+  //clear the input field
+  e.target.elements.message.value = "";
+  e.target.elements.message.focus();
+});
+
+//Output the message to the DOM
+const outputMessage = (message) => {
+  //create a div element
+  const div = document.createElement("div");
+  div.classList.add("message");
+  //check if the message is from the bot or the user
+  if(message.sender === "bot"){
+  div.innerHTML = `bot message: ${message}`}
+  else{
+  div.innerHTML = `user message: ${message}`}
+  //append the div to the messages div
+  messages.appendChild(div);
+}
 
