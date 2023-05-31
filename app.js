@@ -79,13 +79,17 @@ socket.on("chat message", (message) => {
       //the user has selected an option, so we check which option they selected
       let botresponse = "";
       if(message === "1"){
-        botresponse = "You selected option 1 <br> here is the menu";
+        botresponse = "You selected option 1 <br> Frequently asked questions: <br> 1. How do I use the application? <br> 2. How do I control the map? <br> 3. Why is the site asking for my location? <br> 4. None of the above (Contact support) <br> 5. Return to previous screen";
+        progress = 2;
       }else if(message === "2"){
-        botresponse = "You selected option 2 <br> checkout your order";
+        botresponse = 'You selected option 2 <br> Contact support: <br> You can contact our support team <a href="https:/www.codingthecurbs.com/contact">here</a>';
+        progress = 0;
       }else if (message === "3"){
-        botresponse = "You selected option 3 <br> here is your order history";
+        botresponse = 'You selected option 3 <br> Report an app error: <br> You can find this project on gitHub and report any problems you encounter <a href="https://github.com/MokhtarAkle/connecting-people-realtime-web-app/issues">here</a>';
+      progress = 0;
       }else if(message === "4"){
         botresponse = "You selected option 4 <br>order canceled";
+        progress = 0;
       }else{
         //if the user enters an invalid option, we send the default message
         botresponse = "Invalid option <br> Press any of the following keys: <br> 1. Place Order <br> 2. Checkout Order <br> 3. Order History <br> 4. Cancel Order <br>";
@@ -96,8 +100,18 @@ socket.on("chat message", (message) => {
       }
       io.to(sessionId).emit("chat message", {sender: "bot", message: botresponse});
       //reset the progress
-      progress = 0;
       break;
+
+      case 2:
+        botresponse = "";
+      if(message === "1"){
+        botresponse = "hahah";
+      }else if(message === "2"){
+        botresponse = 'hahasasa">here</a>';
+      }
+      io.to(sessionId).emit("chat message", {sender: "bot", message: botresponse});
+
+    break;
   }
 });
 });
