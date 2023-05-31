@@ -246,3 +246,4 @@
 //     searchBar.style.display = "none";
 //   }
 // }
+

@@ -366,7 +366,7 @@ picture > img{
     border-radius: 10%;
     padding: 5px;
 }
-main > form{
+/* main > form{
     align-self: flex-end;
     margin-right: 2em;
     outline: solid 1px var(--secondary-ctc-color);
@@ -377,7 +377,7 @@ main > form{
     position: absolute;
     z-index: 2;
     
-}
+} */
 
 #filter-form{
     display: flex;
