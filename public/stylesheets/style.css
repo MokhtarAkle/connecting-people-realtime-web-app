@@ -577,7 +577,7 @@ section > img{
   
   .header {
     padding: 10px;
-    background-color: #333;
+    background-color: var(--main-ctc-color);
     color: #fff;
     display: flex;
     justify-content: space-between;
@@ -613,7 +613,7 @@ section > img{
     margin-left: 10px;
     padding: 5px 10px;
     border: none;
-    background-color: #333;
+    background-color: var(--main-ctc-color);
     color: #fff;
     cursor: pointer;
   }
@@ -628,7 +628,7 @@ section > img{
     right: 20px;
     padding: 10px 20px;
     border: none;
-    background-color: #333;
+    background-color: var(--main-ctc-color);
     color: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
