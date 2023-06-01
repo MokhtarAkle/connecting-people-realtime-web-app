@@ -298,5 +298,32 @@ chatForm.addEventListener("submit", (e) => {
   chatInput.focus();
 });
 
+// Open chat popup
+document.getElementById("open-chat").addEventListener("click", function() {
+  document.getElementById("chat-popup").style.display = "block";
+});
+
+// Close chat popup
+document.getElementById("close-chat").addEventListener("click", function() {
+  document.getElementById("chat-popup").style.display = "none";
+});
+
+// Submit message
+document.getElementById("chat-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  var messageInput = document.getElementById("message-input");
+  var message = messageInput.value;
+  if (message.trim() !== "") {
+    // Append the message to the chat
+    var messagesContainer = document.getElementById("messages");
+    var newMessage = document.createElement("div");
+    newMessage.className = "message";
+    newMessage.textContent = message;
+    messagesContainer.appendChild(newMessage);
+
+    // Clear the input
+    messageInput.value = "";
+  }
+});
 
 

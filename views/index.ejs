@@ -113,15 +113,22 @@
             </form>
         </section>
 
-        <h1>Chatbot</h1>
 <!-- Div To Display Our Messages -->
-<div id="messages"></div>
+<button id="open-chat">Open Chat</button>
 
-<!--Form to submit message -->
-<form id="chat-form">
-  <input id="message-input" type="text">
-  <button type="submit">Send</button>
-</form>
+<!-- Popup container -->
+<div id="chat-popup" class="popup">
+  <div id="chat-header" class="header">
+    <h2>Chatbot</h2>
+    <button id="close-chat">&times;</button>
+  </div>
+  <div id="messages" class="messages"></div>
+  <form id="chat-form" class="form">
+    <input id="message-input" type="text">
+    <button type="submit">Send</button>
+  </form>
+</div>
+
     </main>
 
 <%- include('./partials/foot') %>
