@@ -61,6 +61,7 @@ io.to(sessionId).emit("chat message", {sender: "bot", message: "Welcome to the C
 let progress = 0
 //listen for the chat message event from the client
 socket.on("chat message", (message) => {
+  let botresponse = "";
 
   //output the user message to the DOM by emitting the chat message event to the client
   io.to(sessionId).emit("chat message", {sender: "user", message});
@@ -77,22 +78,24 @@ socket.on("chat message", (message) => {
       break;
     case 1:
       //the user has selected an option, so we check which option they selected
-      let botresponse = "";
       if(message === "1"){
-        botresponse = "You selected option 1 <br> Frequently asked questions: <br> 1. How do I use the application? <br> 2. How do I control the map? <br> 3. Why is the site asking for my location? <br> 4. None of the above (Contact support) <br> 5. Return to previous screen";
+        botresponse = "You selected option 1 <br> Frequently asked questions: <br> 1. How do I use the application? <br> 2. How do I control the map? <br> 3. Why is the site asking for my location? <br> 4. None of the above (Contact support) <br> Press any other key to return to previous screen";
         progress = 2;
       }else if(message === "2"){
-        botresponse = 'You selected option 2 <br> Contact support: <br> You can contact our support team <a href="https:/www.codingthecurbs.com/contact">here</a>';
+        botresponse = 'You selected option 2 <br> Contact support: <br> You can contact our support team <a href="https:/www.codingthecurbs.com/contact">here</a> <br> Press any other key to return to previous screen';
         progress = 0;
       }else if (message === "3"){
-        botresponse = 'You selected option 3 <br> Report an app error: <br> You can find this project on gitHub and report any problems you encounter <a href="https://github.com/MokhtarAkle/connecting-people-realtime-web-app/issues">here</a>';
+        botresponse = 'You selected option 3 <br> Report an app error: <br> You can find this project on gitHub and report any problems you encounter <a href="https://github.com/MokhtarAkle/connecting-people-realtime-web-app/issues">here</a> <br> Press any other key to return to previous screen';
       progress = 0;
       }else if(message === "4"){
-        botresponse = "You selected option 4 <br>order canceled";
+        botresponse = "You selected option 4 <br> Live support chat: WIP <br> Press any other key to return to previous screen";
+        progress = 0;
+      }else if(message === "5"){
+        botresponse = "You selected option 5 <br> Return to previous screen <br> Press any other key to return to previous screen";
         progress = 0;
       }else{
         //if the user enters an invalid option, we send the default message
-        botresponse = "Invalid option <br> Press any of the following keys: <br> 1. Place Order <br> 2. Checkout Order <br> 3. Order History <br> 4. Cancel Order <br>";
+        botresponse = "Invalid option <br> Press any of the following keys: <br> 1. Frequently asked questions: <br> 2. Contact support: <br> 3. Report an app error: <br> 4. Live support chat <br>";
 //set the progess as 1 until the proper input is recieved
         progress = 1;
         io.to(sessionId).emit("chat message", {sender: "bot", message: botresponse});
@@ -103,13 +106,26 @@ socket.on("chat message", (message) => {
       break;
 
       case 2:
-        botresponse = "";
-      if(message === "1"){
-        botresponse = "hahah";
-      }else if(message === "2"){
-        botresponse = 'hahasasa">here</a>';
-      }
-      io.to(sessionId).emit("chat message", {sender: "bot", message: botresponse});
+        if(message === "1"){
+          botresponse = "Q: How do I use the application? <br> A: For general instructions on available functions and controls, refer to: <a href='https://github.com/MokhtarAkle/connecting-people-realtime-web-app'>gitHub readme</a>";
+          progress = 1;
+        }else if(message === "2"){
+          botresponse = "Q: How do I control the map? <br> A: The map used by this application makes use of the Google maps API. For any questions regarding controls and/or functions of the map, refer to: <a href='https://support.google.com/maps/?hl=en#topic=3092425'>Google Maps support</a>";
+          progress = 1;
+        }else if(message === "3"){
+          botresponse = "Q: Why is the site asking for my location? <br> A: The site uses the geolocation API to ping your location and display it on the map as a point of reference. If you don't want to share your location data you can deny the question and still make use of the application freely.";
+          progress = 1;
+        }else if(message === "4"){
+          botresponse = "Q: None of the above (Contact support) <br> A: If your question could not be answered or you have further questions, you can contact the official Coding the Curbs support team: <a href='https://www.codingthecurbs.com/contact'>Here</a> ";
+          progress = 1;
+        }
+        else{
+          progress = 0;
+          return
+        }
+
+        io.to(sessionId).emit("chat message", {sender: "bot", message: botresponse});
+        io.to(sessionId).emit("chat message", {sender: "bot", message: `Press 1 to return to previous screen`});
 
     break;
   }
