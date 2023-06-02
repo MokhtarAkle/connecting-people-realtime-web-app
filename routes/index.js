@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var filters = require('ctc-module');
+const fetch = require('node-fetch');
 
 require('dotenv').config()
 
