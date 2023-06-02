@@ -1,5 +1,5 @@
-# Readme performance matters optimized website
-![image](https://github.com/MokhtarAkle/performance-matters-optimized-website/assets/112856020/941df927-10b3-40df-9128-99c84e4e8a39)
+# Readme connecting people realtime web app
+![image](https://github.com/MokhtarAkle/connecting-people-realtime-web-app/assets/112856020/449eb195-2ac2-4ef8-9b3a-34e7d7de26d9)
 
 
 ## Inhoudsopgave
