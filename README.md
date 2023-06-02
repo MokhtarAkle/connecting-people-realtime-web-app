@@ -27,8 +27,6 @@ De view engine die we gebruiken is EJS. Hiermee kan je makkelijk templates van H
 
 ### Socket.io
 Een low latency communicatie frame waarmee je chat app kan maken.
-![image](https://github.com/MokhtarAkle/performance-matters-optimized-website/assets/112856020/6098d815-a7d0-4939-9945-6e76e2030dc8)
-
 
 ## Licentie
 
