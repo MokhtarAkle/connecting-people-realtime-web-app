@@ -1,6 +1,4 @@
 # Readme connecting people realtime web app
-![image](https://github.com/MokhtarAkle/connecting-people-realtime-web-app/assets/112856020/449eb195-2ac2-4ef8-9b3a-34e7d7de26d9)
-
 
 ## Inhoudsopgave
 
@@ -14,6 +12,9 @@
 
 ## Beschrijving
 Tijdens de huidige sprint moesten we in groepjes verder werken aan een user story. Mokhtar en Fatih hebben samen tijdens deze sprint realtime web app genaamd een chatbot gemaakt.
+
+![image](https://github.com/MokhtarAkle/connecting-people-realtime-web-app/assets/112856020/449eb195-2ac2-4ef8-9b3a-34e7d7de26d9)
+
 
 ## Kenmerken
 ### Node
