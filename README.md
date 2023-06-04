@@ -1,4 +1,8 @@
-# Readme connecting people realtime web app
+# Realtime chatbot Coding the Curbs
+
+![image](https://github.com/MokhtarAkle/connecting-people-realtime-web-app/assets/45001009/7dc4c51e-8530-478b-91ae-64a59788d4d8)
+
+![image](https://github.com/MokhtarAkle/connecting-people-realtime-web-app/assets/45001009/40c60c1c-bc08-491c-bfe5-91fbf21def18)
 
 ## Inhoudsopgave
 
@@ -11,10 +15,7 @@
 
 
 ## Beschrijving
-Tijdens de huidige sprint moesten we in groepjes verder werken aan een user story. Mokhtar en Fatih hebben samen tijdens deze sprint realtime web app genaamd een chatbot gemaakt.
-
-![image](https://github.com/MokhtarAkle/connecting-people-realtime-web-app/assets/112856020/449eb195-2ac2-4ef8-9b3a-34e7d7de26d9)
-
+Tijdens de huidige sprint moesten we in groepjes werken aan een nieuwe user story gebaseerd op de implementatie van een realtime web app. Mokhtar en Fatih hebben samen tijdens deze sprint gewerkt aan het maken van een chatbot waar je realtime vragen aan kan stellen en antwoorden van terug krijgt.
 
 ## Kenmerken
 ### Node
@@ -29,6 +30,11 @@ De view engine die we gebruiken is EJS. Hiermee kan je makkelijk templates van H
 ### Socket.io
 Een low latency communicatie frame waarmee je chat app kan maken.
 
+## Installatie
+Gebruik ``` npm install ``` om dependencies te downloaden, maak vervolgens gebruik van ``` npm start ``` om de applicatie te starten of ``` npm run dev ``` om een nodemon enviroment op te starten.
+
+## Bronnen
+Gebaseerd op: https://saheedcodes.hashnode.dev/how-to-build-a-chatbot-using-nodejs-and-socketio
 ## Licentie
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
