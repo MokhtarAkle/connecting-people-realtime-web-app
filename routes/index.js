@@ -2,71 +2,78 @@ var express = require('express');
 var router = express.Router();
 var filters = require('ctc-module');
 const fetch = require('node-fetch');
+const { getSmartzones } = require('../lib/smartzones');
+const chatbot = require('../lib/chatbot');
 
 require('dotenv').config()
 
-const url = `${process.env.API_URL}/smartzones?first=100`;
 const baseurl = `${process.env.API_URL}`;
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  const { query } = req
   let orderBy = req.query.orderBy || 'publishedAt'
-  let smartUrl = url + '?orderBy=' + orderBy + '&direction=ASC' 
-  fetchJson(smartUrl).then((data) => {
-    res.render('index', data)
-
-});
+  getSmartzones(orderBy).then((smartzones) => {
+    res.render('index', { smartzones })
+  }).catch(next);
 });
 
 router.get('/filtered', function(req, res, next) {
 
-  fetchJson(url).then((data) => {
-    
-        res.render('index', {smartzones: filters(req, data)});
-        console.log(filters(req, data));
+  getSmartzones().then((smartzones) => {
 
-  })
+        res.render('index', {smartzones: filters(req, { smartzones })});
+
+  }).catch(next);
+});
+
+// Smartzones for the map markers on the client
+router.get('/api/smartzones', function(req, res, next) {
+  getSmartzones().then((smartzones) => {
+    res.json({ smartzones });
+  }).catch(next);
+});
+
+// HTTP version of the socket.io chatbot, used where websockets aren't available (Vercel)
+router.post('/api/chat', (req, res) => {
+  const { message } = req.body;
+
+  if (message === undefined) {
+    return res.json({ progress: 0, replies: [chatbot.welcome] });
+  }
+
+  const progress = Number(req.body.progress) || 0;
+  res.json(chatbot.respond(String(message), progress));
 });
 
 
 router.post('/', (request, response) => {
   request.body.timeStart = request.body.dateStart + 'T' + request.body.timeStart + '+00:00';
-  request.body.timeEnd = request.body.dateEnd + 'T' + request.body.timeEnd + '+00:00';    
+  request.body.timeEnd = request.body.dateEnd + 'T' + request.body.timeEnd + '+00:00';
   const url1 = `${baseurl}/reservations`
   postJson(url1, request.body).then((data) => {
     let newReservation = { ... request.body}
 
     console.log(newReservation);
 
-   if (data.success) {
-        response.redirect('/reservationPosted')
+   if (!data.success) {
+    console.error('Reservation failed:', data.message)
+   }
 
-
-    }
-    else {
-    const errorMessage = data.message
-    const newData = { error: errorMessage, values: newReservation }
-
-    }
+    // Always respond, otherwise the request hangs until the serverless function times out
+    response.redirect('/')
   })
 })
 
 
 
 
-async function fetchJson(url) {
-  return await fetch(url)
-    .then((response) => response.json())
-    .catch((error) => error)
-}
-
 async function postJson(url, body) {
   return await fetch(url, {
     method: 'post',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
+    timeout: 5000,
   })
     .then((response) => response.json())
     .catch((error) => error)

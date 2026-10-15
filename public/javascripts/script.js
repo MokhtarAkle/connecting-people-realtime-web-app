@@ -123,7 +123,7 @@ async function setMarkers(map){
           anchor: new google.maps.Point(0, 0),
           };
 
-        const requestURL = 'https://api.codingthecurbs.fdnd.nl/api/v1/smartzones?first=100&direction=ASC';
+        const requestURL = '/api/smartzones';
         const request = new Request(requestURL);
       
         const response = await fetch(request);
@@ -254,20 +254,36 @@ for(let i = 0; i < reserveButton.length; i++){
 // https://support.google.com/mymaps/answer/3024454?hl=en&co=GENIE.Platform%3DDesktop#:~:text=Create%20a%20map,map%20a%20name%20and%20description.
 // https://stackoverflow.com/questions/41648702/prevent-marker-from-scaling-when-zoom-out
 
-//connect to the socket
-const socket = io();
+//connect to the socket, socket.io isn't available on Vercel so the chat falls back to HTTP requests there
+const socket = typeof io === "function" ? io() : null;
 //get the elements fr om the DOM
 const messages = document.querySelector('#messages');
 const chatForm = document.querySelector("#chat-form");
 const chatInput = document.querySelector("#message-input")
+//the user's progress through the chatbot menu, only used by the HTTP fallback
+let chatProgress = 0;
 
 
 
 //listen for the chat message event from the server
-socket.on("chat message", (message) => {
-  //output the message to the DOM
-  outputMessage(message);
-});
+if (socket) {
+  socket.on("chat message", (message) => {
+    //output the message to the DOM
+    outputMessage(message);
+  });
+}
+
+//send a message to the chatbot over HTTP, without a message the server replies with the welcome message
+async function sendChatRequest(message) {
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, progress: chatProgress }),
+  });
+  const result = await response.json();
+  chatProgress = result.progress;
+  result.replies.forEach((reply) => outputMessage({ sender: "bot", message: reply }));
+}
 
 //Output the message to the DOM
 const outputMessage = (message) => {
@@ -291,12 +307,22 @@ chatForm.addEventListener("submit", (e) => {
   //get the message from the input
   const message = e.target.elements["message-input"].value;
   //sends the message to the server
-  socket.emit("chat message", message);
+  if (socket) {
+    socket.emit("chat message", message);
+  } else {
+    outputMessage({ sender: "user", message });
+    sendChatRequest(message);
+  }
   //clear the input field
-  
+
   chatInput.value= "";
   chatInput.focus();
 });
+
+//without socket.io, ask the server for the welcome message
+if (!socket) {
+  sendChatRequest();
+}
 
 // Open chat popup
 document.getElementById("open-chat").addEventListener("click", function() {
